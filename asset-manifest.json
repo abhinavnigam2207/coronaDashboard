@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/coronaDashboard/static/css/main.5f361e03.chunk.css",
+    "main.js": "/coronaDashboard/static/js/main.b31cdd3c.chunk.js",
+    "main.js.map": "/coronaDashboard/static/js/main.b31cdd3c.chunk.js.map",
+    "runtime-main.js": "/coronaDashboard/static/js/runtime-main.58de5c8b.js",
+    "runtime-main.js.map": "/coronaDashboard/static/js/runtime-main.58de5c8b.js.map",
+    "static/js/2.f30ec108.chunk.js": "/coronaDashboard/static/js/2.f30ec108.chunk.js",
+    "static/js/2.f30ec108.chunk.js.map": "/coronaDashboard/static/js/2.f30ec108.chunk.js.map",
+    "index.html": "/coronaDashboard/index.html",
+    "precache-manifest.e4a862d71f98e070ea64ccd8ef9c9edf.js": "/coronaDashboard/precache-manifest.e4a862d71f98e070ea64ccd8ef9c9edf.js",
+    "service-worker.js": "/coronaDashboard/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/coronaDashboard/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.f30ec108.chunk.js.LICENSE.txt": "/coronaDashboard/static/js/2.f30ec108.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/coronaDashboard/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.58de5c8b.js",
+    "static/js/2.f30ec108.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.b31cdd3c.chunk.js"
+  ]
+}
