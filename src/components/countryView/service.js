@@ -16,11 +16,13 @@ export const getGraphData = (resp) => {
         },
         {
             label: 'Recovered',
-            data: recovered
+            data: recovered,
+            color: 'green'
         },
         {
             label: 'Deaths',
-            data: deaths
+            data: deaths,
+            color: 'red'
         }
     ];
 }

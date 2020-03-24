@@ -10,6 +10,7 @@ import { getGraphData } from './service';
 
 const p4 = css`padding: 4%;`;
 const marginAuto = css`margin: 0 auto;`;
+const textCenter = css`text-align: center;`;
 const container = css`
     padding: 20px 30px;
     display: flex;
@@ -17,7 +18,7 @@ const container = css`
 `;
 const chartContainer = css`
     height: 250px;
-    width: 400px;
+    width: 100%;
 `;
 const pieContainer = css`
     height: 250px;
@@ -94,25 +95,36 @@ export default () => {
                                 options={countryOptions}
                             />
                         </div>
+                        <hr />
                         <div css={p4}>
+                            <h3 css={textCenter}>Country Statistics</h3>
                             <CountryTable countriesData={countriesData} selection={selectedOption.value} />
                         </div>
+                        <hr />
                         <div css={p4}>
-                            {historicalData.length
+                            {historicalData.length 
                                 ? (
-                                    <div css={chartContainer}>
-                                        <Chart
-                                            data={historicalData}
-                                            series={series}
-                                            axes={axes}
-                                            tooltip
-                                        />
-                                    </div>
+                                    <React.Fragment>
+                                        {historicalData[0].data.length
+                                            ? (
+                                                <div css={chartContainer}>
+                                                    <h3 css={textCenter}>Timeline</h3>
+                                                    <Chart
+                                                        data={historicalData}
+                                                        series={series}
+                                                        axes={axes}
+                                                        tooltip
+                                                    />
+                                                </div>
+                                            ) : null}
+                                    </React.Fragment>                                    
                                 )
-                                : <loader />}
+                                : <Loader />}
                         </div>
+                        <hr />
                         <div css={p4}>
                             <div css={pieContainer}>
+                                <h3 css={textCenter}>Pie Chart</h3>
                                 <PieChart
                                     label={true}
                                     labelStyle={{fill:'white', fontSize: '5px'}}
@@ -121,9 +133,9 @@ export default () => {
                                     background={'grey'}
                                     animationDuration={500}
                                     data={[
-                                        { title: 'Active', value: countriesData[selectedOption.value].active, color: '#E38627' },
-                                        { title: 'Recovered', value: countriesData[selectedOption.value].recovered, color: '#C13C37' },
-                                        { title: 'Total', value: countriesData[selectedOption.value].cases, color: '#6A2135' },
+                                        { title: 'Active', value: countriesData[selectedOption.value].active, color: '#007ED6' },
+                                        { title: 'Recovered', value: countriesData[selectedOption.value].recovered, color: '#77DD77' },
+                                        { title: 'Deaths', value: countriesData[selectedOption.value].deaths, color: '#F13C59' },
                                     ]}
                                 />
                             </div>
