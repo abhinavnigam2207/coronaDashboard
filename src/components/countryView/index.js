@@ -9,6 +9,7 @@ import PieChart from 'react-minimal-pie-chart';
 import { getGraphData } from './service';
 
 const p4 = css`padding: 4%;`;
+const pt20 = css`padding: 20% 0% 10% 0%`
 const marginAuto = css`margin: 0 auto;`;
 const textCenter = css`text-align: center;`;
 const container = css`
@@ -48,7 +49,7 @@ export default () => {
     const series = React.useMemo(() => ({ showPoints: false }), []);
     const axes = React.useMemo(
         () => [
-            { primary: true, type: 'linear', position: 'bottom' },
+            { primary: true, type: 'linear', position: 'bottom', show: false },
             { type: 'linear', position: 'left' }
         ],[]
     )
@@ -142,7 +143,7 @@ export default () => {
                         </div>
                     </React.Fragment>
                 )
-                : <Loader/>}
+                : <div css={pt20}><Loader/></div>}
         </div>
     );
 };
