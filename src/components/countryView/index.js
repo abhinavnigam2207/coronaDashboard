@@ -1,40 +1,29 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import styled from '@emotion/styled'
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Loader from '../commons/loader';
+import CountryTable from './countryTable';
+import { Chart } from 'react-charts';
+import PieChart from 'react-minimal-pie-chart';
+import { getGraphData } from './service';
 
-const TH = styled.td`
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-`;
-const TD = styled.td`
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-`;
-const bgGrey = css`background-color: #dddddd;`;
-const bold = css`font-weight: 600;`;
 const p4 = css`padding: 4%;`;
 const marginAuto = css`margin: 0 auto;`;
-const textCenter = css`text-align: center;`;
 const container = css`
     padding: 20px 30px;
     display: flex;
     flex-direction: column;
 `;
-const tableCSS = css`
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+const chartContainer = css`
+    height: 250px;
+    width: 400px;
 `;
-const flag = css`
-    width: 40px;
-    height: 25px;
+const pieContainer = css`
+    height: 250px;
+    width: 250px;
+    margin: 0 auto;
 `;
-
 const customStyles = {
     container: (provided) => ({
         ...provided,
@@ -44,7 +33,8 @@ const customStyles = {
       ...provided,
       textAlign: 'left',
     })
-  }
+};
+
 
 export default () => {
     const [selectedOption, setSelectedOption] = useState({
@@ -53,9 +43,25 @@ export default () => {
     });
     const [countryOptions, setCountryOptions] = useState({});
     const [countriesData, setCountriesData] = useState({});
+    const [historicalData, setHistoricalData] = useState({});
+    const series = React.useMemo(() => ({ showPoints: false }), []);
+    const axes = React.useMemo(
+        () => [
+            { primary: true, type: 'linear', position: 'bottom' },
+            { type: 'linear', position: 'left' }
+        ],[]
+    )
+
+    const getHistoricalData = async (country) => {
+        const resp = await fetch(`https://corona.lmao.ninja/historical/${country}`);
+        const response = await resp.json();
+        const historyData = getGraphData(response.timeline);
+        setHistoricalData(historyData);
+    };
 
     const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
+        getHistoricalData(selectedOption.value);
     };
 
     useEffect(() => {
@@ -70,6 +76,7 @@ export default () => {
                 label: key.country
             }));
             setCountryOptions(countries);
+            getHistoricalData(selectedOption.value);
         }
         getCountries()
     }, []);
@@ -88,36 +95,38 @@ export default () => {
                             />
                         </div>
                         <div css={p4}>
-                            <table css={tableCSS}>
-                                <tr>
-                                    <TH css={textCenter}>{selectedOption.value}</TH>
-                                    <TH css={textCenter}><img css={flag} src={countriesData[selectedOption.value].countryInfo.flag} /></TH>
-                                </tr>
-                                <tr>
-                                    <TD>Cases Today</TD>
-                                    <TD>{countriesData[selectedOption.value].todayCases}</TD>
-                                </tr>
-                                <tr css={bgGrey}>
-                                    <TD>Deaths Today</TD>
-                                    <TD>{countriesData[selectedOption.value].todayDeaths}</TD>
-                                </tr>
-                                <tr>
-                                    <TD>Recovered</TD>
-                                    <TD>{countriesData[selectedOption.value].recovered}</TD>
-                                </tr>
-                                <tr css={bgGrey}>
-                                    <TD>Active</TD>
-                                    <TD>{countriesData[selectedOption.value].active}</TD>
-                                </tr>
-                                <tr>
-                                    <TD>Total Deaths</TD>
-                                    <TD>{countriesData[selectedOption.value].deaths}</TD>
-                                </tr>
-                                <tr css={[bgGrey, bold]}>
-                                    <TD>Total Cases</TD>
-                                    <TD>{countriesData[selectedOption.value].cases}</TD>
-                                </tr>
-                            </table>
+                            <CountryTable countriesData={countriesData} selection={selectedOption.value} />
+                        </div>
+                        <div css={p4}>
+                            {historicalData.length
+                                ? (
+                                    <div css={chartContainer}>
+                                        <Chart
+                                            data={historicalData}
+                                            series={series}
+                                            axes={axes}
+                                            tooltip
+                                        />
+                                    </div>
+                                )
+                                : <loader />}
+                        </div>
+                        <div css={p4}>
+                            <div css={pieContainer}>
+                                <PieChart
+                                    label={true}
+                                    labelStyle={{fill:'white', fontSize: '5px'}}
+                                    labelPosition={80}
+                                    animate={true}
+                                    background={'grey'}
+                                    animationDuration={500}
+                                    data={[
+                                        { title: 'Active', value: countriesData[selectedOption.value].active, color: '#E38627' },
+                                        { title: 'Recovered', value: countriesData[selectedOption.value].recovered, color: '#C13C37' },
+                                        { title: 'Total', value: countriesData[selectedOption.value].cases, color: '#6A2135' },
+                                    ]}
+                                />
+                            </div>
                         </div>
                     </React.Fragment>
                 )
