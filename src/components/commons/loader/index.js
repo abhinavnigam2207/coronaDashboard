@@ -6,9 +6,9 @@ const spin = keyframes`
     100% { transform: rotate(360deg); }
 `
 const loaderCSS = css`
-    border: 8px solid #f3f3f3;
+    border: 5px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 8px solid #3498db;
+    border-top: 5px solid #3498db;
     width: 30px;
     height: 30px;
     -webkit-animation: ${spin} 1s linear infinite;
