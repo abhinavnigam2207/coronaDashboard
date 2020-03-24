@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Loader from '../commons/loader';
 
 const container = css`
     padding: 20px 30px;
@@ -17,6 +18,7 @@ const item = css`
     font-size: 14px;
     margin: 2%;
     width: 100%;
+    border-radius: 5px;
 `;
 
 export default () => {
@@ -34,22 +36,28 @@ export default () => {
     return (
         <div css={container}>
             <div css={item}>
-                Confirmed :
                 {overview && overview.cases
-                    ? (<span>{overview.cases}</span>)
-                    : null}
+                    ? (<React.Fragment>
+                            <div>Confirmed</div> 
+                            <div>{overview.cases}</div>
+                        </React.Fragment>)
+                    : <Loader />}
             </div>
             <div css={item}>
-                Deaths :
                 {overview && overview.deaths
-                    ? (<span>{overview.deaths}</span>)
-                    : null}
+                    ? (<React.Fragment>
+                            <div>Deaths</div> 
+                            <div>{overview.deaths}</div>
+                        </React.Fragment>)
+                    : <Loader />}
             </div>
             <div css={item}>
-                Recovered :
                 {overview && overview.recovered
-                    ? (<span>{overview.recovered}</span>)
-                    : null}
+                    ? (<React.Fragment>
+                            <div>Recovered</div> 
+                            <div>{overview.recovered}</div>
+                        </React.Fragment>)
+                    : <Loader />}
             </div>
         </div>
     );
