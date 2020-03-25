@@ -26,6 +26,9 @@ const nav = css`
 const navItem = css`
   padding: 10px;
   border: 1px solid grey;
+  border-radius: 5px;
+  margin: 0 10px;
+  background: antiquewhite;
   a{ text-decoration: none; }
 `
 

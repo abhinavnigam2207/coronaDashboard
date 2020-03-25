@@ -81,7 +81,7 @@ export default () => {
           : (
             <div css={container}>
               <DataTable
-                title="State-Wise Data"
+                title="India State-Wise Data"
                 columns={columns}
                 data={stateWiseData}
                 striped
