@@ -1,16 +1,19 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import style from '../../App.css';
 import React, { useState, useEffect } from 'react';
 import Loader from '../commons/loader';
 import DataTable from 'react-data-table-component';
 const container = css`
   display: flex;
   flex-direction: column;
+  margin: 10px 0px;
 `;
 const loaderContainer = css`margin: 30% auto;`;
 const tableStyle = {
   maxHeight: '450px',
-  overflowY: 'scroll'
+  overflowY: 'scroll',
+  overflowX: 'hidden'
 };
 const columns = [
   {
@@ -18,7 +21,7 @@ const columns = [
     selector: 'state',
     sortable: true,
     left: true,
-    width: '35%'
+    width: '30%'
   },
   {
     name: 'Confirmed',
@@ -50,7 +53,7 @@ const columns = [
   }
 ];
 
-const customStyles = { rows: { style: { width: "80%", height: '30px', minHeight: '30px' } } }
+const customStyles = { rows: { style: { height: '30px', minHeight: '30px' } } }
 
 export default () => {
     const [isLoading, setLoading] = useState(false);
