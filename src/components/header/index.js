@@ -1,17 +1,18 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-import '../../App.css';
+import { css, jsx } from '@emotion/core';
 
 const headerCSS = css`
-    background-color: #282c34;
-    color: #61dafb;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    padding: 5px 10px;
+  background-color: #282c34;
+  color: #61dafb;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding: 5px 0px;
 `;
+const head = css`padding-left: 10px;`;
 
 export default () => {
-  return (<header css={headerCSS}> Corona Dashboard </header>);
+  return (<header css={headerCSS}><h3 css={head}>Corona Dashboard</h3></header>);
 };

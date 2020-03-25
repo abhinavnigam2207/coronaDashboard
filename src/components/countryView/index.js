@@ -13,7 +13,6 @@ const pt20 = css`padding: 20% 0% 10% 0%`
 const marginAuto = css`margin: 0 auto;`;
 const textCenter = css`text-align: center;`;
 const container = css`
-    padding: 20px 30px;
     display: flex;
     flex-direction: column;
 `;
@@ -96,7 +95,6 @@ export default () => {
                                 options={countryOptions}
                             />
                         </div>
-                        <hr />
                         <div css={p4}>
                             <h3 css={textCenter}>Country Statistics</h3>
                             <CountryTable countriesData={countriesData} selection={selectedOption.value} />
